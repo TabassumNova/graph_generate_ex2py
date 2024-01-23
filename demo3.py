@@ -2,14 +2,15 @@ import os
 import glob
 import matplotlib as plt
 import plotly.graph_objects as go
-
+import requests
 from util.camera_pose_visualizer import CameraPoseVisualizer
 from util.camera_parameter_loader import CameraParameterLoader
 
 
-def plot_scenewise(plotly_viz=False):
+def plot_scenewise(file_location, plotly_viz=False):
     loader = CameraParameterLoader()
     visualizer = CameraPoseVisualizer([-50, 50], [-50, 50], [0, 100])
+    x = glob.glob(os.path.join('dataset', '*', 'trajectory'))
     list_scene = list(filter(os.path.isdir, glob.glob(os.path.join('dataset', '*', 'trajectory'))))
     dts_name = [os.path.split(os.path.split(i)[0])[-1] for i in list_scene]
     if plotly_viz:
@@ -32,7 +33,9 @@ def plot_scenewise(plotly_viz=False):
         list_frame_annotation = glob.glob(os.path.join(scene, '[0-9][0-9][0-9][0-9][0-9][0-9].json'))
         for idx_frame, frame_annotation in enumerate(list_frame_annotation):
             if idx_frame % 10 == 0:
-                extrinsic = loader.get_extrinsic(frame_annotation)
+                data_url = file_location + frame_annotation
+                response = requests.get(data_url)
+                extrinsic = loader.get_extrinsic(response.text)
                 visualizer.extrinsic2pyramid(extrinsic, (idx_scene / len(list_scene)), 10,
                                              plotly_viz=plotly_viz, legend_group=dts_name[idx_scene],
                                              name=dts_name[idx_scene], show_legend = show_legend)
