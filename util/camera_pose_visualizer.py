@@ -46,7 +46,7 @@ class CameraPoseVisualizer:
         y = [polygon[1] for vertice in meshes for polygon in vertice]
         z = [polygon[2] for vertice in meshes for polygon in vertice]
 
-        data = go.Mesh3d(x=x, y=y, z=z, color=color, showlegend=show_legend, legendgroup=legend_group, name=name)
+        data = go.Mesh3d(x=x, y=y, z=z, opacity=0.8, color=color, showlegend=show_legend, legendgroup=legend_group, name=name)
 
         return data
     def customize_legend(self, list_label):

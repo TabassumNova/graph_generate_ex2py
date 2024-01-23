@@ -46,6 +46,8 @@ def plot_scenewise(plotly_viz=False):
     if plotly_viz:
         final_layout.show()
 
+    return final_layout
+
 
 
 def plot_framewise(plotly_viz=False):
@@ -94,5 +96,5 @@ def plot_framewise(plotly_viz=False):
     if plotly_viz:
         final_layout.show()
 
-plot_scenewise(plotly_viz=True)
-plot_framewise(plotly_viz=True)
+# plot_scenewise(plotly_viz=True)
+# plot_framewise(plotly_viz=True)

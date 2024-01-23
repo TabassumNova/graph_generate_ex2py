@@ -42,5 +42,5 @@ def plot_framewise():
     visualizer.colorbar(max_frame_length)
     visualizer.show()
 
-plot_scenewise()
-plot_framewise()
+# plot_scenewise()
+# plot_framewise()
